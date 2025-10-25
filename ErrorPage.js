@@ -122,13 +122,25 @@ function getLevelsArray() {
 let levels = getLevelsArray();
 
 function play(levels) {
+    const keys = {
+        w:false,
+        a:false,
+        s:false,
+        d:false
+    }
   let finished = false;
   let i = 0;
   //const player = new Player("assets/ny/player.png", i)
   let level = levels[i];
   level.loadLevel();
   player.showPlayer()
-
+    while (!finished){
+        document.addEventListener("Keydown", (e)=>{
+            if (keys.hasOwnProperty(e.key.toLowerCase())){
+                keys[e.key.toLowerCase()] = true;
+            }
+        })
+    }
   return null;
 }
 
