@@ -141,7 +141,7 @@ function getLevelsArray() {
 
 
 function play(levels) {
-
+  
   let finished = false;
   let i = 0;
   let level = levels[i];
@@ -149,7 +149,7 @@ function play(levels) {
   level.loadLevel();
 
   let initialX = 50;
-  let initialY = 50;
+    let initialY = 50;
   player.showPlayer(initialX, initialY);
 
   document.addEventListener("keydown", (e) => {
@@ -157,21 +157,21 @@ function play(levels) {
       initialY -= 10;
       player.showPlayer(initialX, initialY);
       for (let walker of level.walkers) {
-        walker.randomlyMove();
+            walker.randomlyMove();
       }
     }
 
     if (e.key.toLowerCase() == "s") {
       initialY += 10;
       player.showPlayer(initialX, initialY);
-      for (let walker of level.walkers) {
+          for (let walker of level.walkers) {
         walker.randomlyMove();
       }
     }
 
     if (e.key.toLowerCase() == "a") {
       initialX -= 10;
-      player.showPlayer(initialX, initialY);
+          player.showPlayer(initialX, initialY);
       for (let walker of level.walkers) {
         walker.randomlyMove();
       }
