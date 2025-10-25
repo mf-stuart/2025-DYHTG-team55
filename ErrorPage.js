@@ -45,21 +45,18 @@ class Player {
     this.currentLevel = 0;
     this.hitbox = 10;
     this.collection = []
-    this.pastImage = document.createElement("img");
-    document.querySelector("#container").appendChild(this.pastImage);
+    this.image = document.createElement("img");
+    document.querySelector("#container").appendChild(this.image);
   }
 
   showPlayer(left, top) {
-    document.querySelector("#container").removeChild(this.pastImage);
-    let image = document.createElement("img");
-    image.src = this.sprite;
-    document.querySelector("#container").appendChild(image);
-    image.style.position = "absolute";
-    image.style.left = left + "px";
-    image.style.top = top + "px";
-    image.style.width = "50px";
-    image.style.height = "50px";
-    this.pastImage = image;
+    this.image.src = this.sprite;
+    this.image.style.position = "absolute";
+    this.image.style.left = left + "px";
+    this.image.style.top = top + "px";
+    this.image.style.width = "50px";
+    this.image.style.height = "50px";
+    return this.image;
   }
 
   updatePlayerSprite(newSprite) {
@@ -73,21 +70,18 @@ class Walker {
     this.spawnPos = spawnPos;
     this.hitbox = 7;
     this.direction = getRandomWallCord();
-    this.pastImage = document.createElement("img");
-    document.querySelector("#container").appendChild(this.pastImage);
+    this.image = document.createElement("img");
+    document.querySelector("#container").appendChild(this.image);
   }
 
   showWalker(left, top) {
-    document.querySelector("#container").removeChild(this.pastImage);
-    let image = document.createElement("img");
-    image.src = this.sprite;
-    document.querySelector("#container").appendChild(image);
-    image.style.position = "absolute";
-    image.style.left = left + "px";
-    image.style.top = top + "px";
-    image.style.width = "50px";
-    image.style.height = "50px";
-    this.pastImage = image;
+    this.image.src = this.sprite;
+    this.image.style.position = "absolute";
+    this.image.style.left = left + "px";
+    this.image.style.top = top + "px";
+    this.image.style.width = "50px";
+    this.image.style.height = "50px";
+    return this.image;
   }
 }
 
@@ -153,8 +147,6 @@ function play(levels) {
   let level = levels[i];
   let player = level.player;
   level.loadLevel();
-  player.showPlayer(250, 250)
-  player.showPlayer(250, 500)
 
   let initialX = 50;
   let initialY = 50;
@@ -171,7 +163,8 @@ function play(levels) {
 
     if (e.key.toLowerCase() == "a") {
       initialX -= 3;
-      player.showPlayer(initialX, initialY);
+      let img = player.showPlayer(initialX, initialY);
+      img.style.transform = "scaleX(-1)";
     }
 
     if (e.key.toLowerCase() == "d") {
