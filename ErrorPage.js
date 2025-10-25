@@ -158,22 +158,22 @@ function play(levels) {
   let initialY = 50;
   document.addEventListener("keydown", (e) => {
     if (e.key.toLowerCase() == "w") {
-      initialY -= 3;
+      initialY -= 10;
       player.showPlayer(initialX, initialY);
     }
 
     if (e.key.toLowerCase() == "s") {
-      initialY += 3;
+      initialY += 10;
       player.showPlayer(initialX, initialY);
     }
 
     if (e.key.toLowerCase() == "a") {
-      initialX -= 3;
+      initialX -= 10;
       player.showPlayer(initialX, initialY);
     }
 
     if (e.key.toLowerCase() == "d") {
-      initialX += 3;
+      initialX += 10;
       player.showPlayer(initialX, initialY);
     }
   })
