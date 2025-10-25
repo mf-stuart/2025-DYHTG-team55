@@ -28,6 +28,11 @@ class Level {
     document.body.style.background = "#f3f3f3 url(" + this.groundSprite + ")";
     document.body.style.backgroundRepeat = "repeat-y repeat-x";
     this.player.showPlayer(150, 300);
+
+    // load walkers
+    for (let walker of this.walkers) {
+      walker.showWalker(walker.spawnPos[0], walker.spawnPos[1]);
+    }
   }
 }
 
@@ -65,6 +70,21 @@ class Walker {
     this.spawnPos = spawnPos;
     this.hitbox = 7;
     this.direction = getRandomWallCord();
+    this.pastImage = document.createElement("img");
+    document.querySelector("#container").appendChild(this.pastImage);
+  }
+
+  showWalker(left, top) {
+    document.querySelector("#container").removeChild(this.pastImage);
+    let image = document.createElement("img");
+    image.src = this.sprite;
+    document.querySelector("#container").appendChild(image);
+    image.style.position = "absolute";
+    image.style.left = left + "px";
+    image.style.top = top + "px";
+    image.style.width = "50px";
+    image.style.height = "50px";
+    this.pastImage = image;
   }
 }
 
@@ -97,10 +117,10 @@ function getLandmarksArray(city) {
 const landmarksList = getLandmarksArray();
 let numOfWalkers = 50;
 //const player = new Player("assets/ny/player.png", 0)
-let walkers = {};
-for (let i = 0; i <= numOfWalkers; i++) {
-  walkers[i] = new Walker("assets/ParisWalker.png", 7, getRandomWallCord());
-}
+// let walkers = {};
+// for (let i = 0; i <= numOfWalkers; i++) {
+//   walkers[i] = new Walker("assets/ParisWalker.png", 7, getRandomWallCord());
+// }
 
 function getLevelsArray() {
   let return_array = [];
@@ -110,7 +130,7 @@ function getLevelsArray() {
     for (let i = 0; i < numOfWalkers; i++) {
       let random_x = Math.random() * (max - min) + min;
       let random_y = Math.random() * (max - min) + min;
-      walkers.push(new Walker("assets/sprites/" + city + "/walker.png"), (random_x, random_y));
+      walkers.push(new Walker("assets/sprites/" + city + "/walker.png", (random_x, random_y)));
     }
     let groundsprite = "assets/sprites/" + city + "/background.png";
     return_array.push(new Level(player, walkers, getLandmarksArray(city), groundsprite));
