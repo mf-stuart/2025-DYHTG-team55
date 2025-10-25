@@ -15,20 +15,6 @@ function getRandomWallCord(){
     }
     return (0, 0);
 }
-
-const landmakrsList = {
-    "Paris" : [new Landmark("assets/Louvre.png", "Louvre", false, (200, 50), 10), new Landmark()]
-}
-let numOfWalkers = 50;
-const player = new Player("assets/WalkingPlayer.png", 0, 10)
-let walkers = {};
-for (let i=0; i<=numOfWalkers; i++){
-    walkers[i] = new Walker("assets/Walker.png", 7, getRandomWallCord());
-}
-
-let levels = [
-    new Level(player, walkers, landmarksList["Paris"], "assets/groundSprite.png"),
-];
 class Level{
     constructor(player, walkers, landmarks, groundSprite){
         this.player = player;
@@ -36,13 +22,18 @@ class Level{
         this.landmarks = landmarks;
         this.groundSprite = groundSprite
     }
+
+    function loadLevel(){
+
+    }
 }
 
 class Player{
-    constructor(sprite, currentLevel, hitbox = 10){
+    constructor(sprite, currentLevel){
         this.sprite = sprite;
         this.currentLevel = currentLevel;
-        this.hitbox = hitbox;
+        this.hitbox = 10;
+        this.collection = []
     }
 }
 
@@ -65,6 +56,27 @@ class Landmark{
     }
 }
 
+const landmakrsList = {
+    "Paris" : [new Landmark("assets/Louvre.png", "Louvre", false, (200, 50), 10), new Landmark()]
+}
+let numOfWalkers = 50;
+const player = new Player("assets/WalkingPlayer.png", 0, 10)
+let walkers = {};
+for (let i=0; i<=numOfWalkers; i++){
+    walkers[i] = new Walker("assets/ParisWalker.png", 7, getRandomWallCord());
+}
+
+let levels = [
+    new Level(player, walkers, landmarksList["Paris"], "assets/groundSprite.png"),
+];
+
 function play(){
+    finished = false;
+    i = 0;
+    level = levels[i];
+    while (!finished){
+        level.loadLevel();
+    }
+
     return null;
 }
