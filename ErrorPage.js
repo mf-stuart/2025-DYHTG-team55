@@ -39,13 +39,13 @@ class Player {
     this.collection = []
   }
 
-  showPlayer(level) {
+  showPlayer(left, top) {
     const image = document.createElement("img");
     image.src = this.sprite;
     document.querySelector("#container").appendChild(image);
     image.style.position = "absolute";
-    image.style.left = "250px";
-    image.style.top = "250px";
+    image.style.left = left + "px";
+    image.style.top = top + "px";
     image.style.width = "50px";
     image.style.height = "50px";
   }
@@ -129,13 +129,20 @@ function play(levels) {
   let level = levels[i];
   let player = level.player;
   level.loadLevel();
-  player.showPlayer()
+  player.showPlayer(250, 250)
+  player.showPlayer(250, 500)
+
   document.addEventListener("Keydown", (e) => {
     if (keys.hasOwnProperty(e.key.toLowerCase())) {
       keys[e.key.toLowerCase()] = true;
     }
   })
 
+  document.addEventListener("Keyup", (e) => {
+    if (keys.hasOwnProperty(e.key.toLowerCase())) {
+      keys[e.key.toLowerCase()] = false;
+    }
+  })
   return null;
 }
 
