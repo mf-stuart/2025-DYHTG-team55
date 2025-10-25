@@ -23,9 +23,12 @@ class Level {
     this.groundSprite = groundSprite
   }
 
-    function loadLevel() {
+    loadLevel() {
+        const image = createElement("img");
+        image.src = this.groundSprite;
+        document.querySelector("#container").appendChild(image);
 
-}
+    }
 }
 
 class Player {
@@ -38,21 +41,21 @@ class Player {
 }
 
 class Walker {
-  constructor(sprite, spawnPos, hitbox = 7, direction) {
+  constructor(sprite, spawnPos) {
     this.sprite = sprite;
     this.spawnPos = spawnPos;
-    this.hitbox = hitbox;
+    this.hitbox = 7;
     this.direction = getRandomWallCord();
   }
 }
 
 class Landmark {
-  constructor(sprite, name, visited = false, location, hitbox = 10) {
+  constructor(sprite, name, location) {
     this.sprite = sprite;
     this.name = name;
-    this.visited = visited;
+    this.visited = false;
     this.location = location;
-    this.hitbox = hitbox;
+    this.hitbox = 10;
   }
 }
 
@@ -72,9 +75,7 @@ function getLandmarksArray(city) {
 }
 
 
-const landmakrsList = {
-  "Paris": [new Landmark("assets/Louvre.png", "Louvre", false, (200, 50), 10), new Landmark()]
-}
+const landmakrsList = getLandmarksArray();
 let numOfWalkers = 50;
 const player = new Player("assets/WalkingPlayer.png", 0, 10)
 let walkers = {};
@@ -82,18 +83,30 @@ for (let i = 0; i <= numOfWalkers; i++) {
   walkers[i] = new Walker("assets/ParisWalker.png", 7, getRandomWallCord());
 }
 
-let levels = [
-  new Level(player, walkers, landmarksList["Paris"], "assets/groundSprite.png"),
-];
-
-function play() {
-  finished = false;
-  i = 0;
-  level = levels[i];
-  while (!finished) {
-    level.loadLevel();
+function getLevelsArray() {
+  let return_array = [];
+  for (const city of cities) {
+    let player = new Player("assets/sprites/" + city + "/player.png", 1);
+    let walkers = [];
+    for (let i = 0; i < numOfWalkers; i++) {
+      walkers.push(new Walker("assets/sprites/" + city + "/walker.png"));
+    }
+    let groundsprite = "assets/sprites/" + city + "/background.png";
+    return_array.push(new Level(player, walkers, getLandmarksArray(city), groundsprite));
   }
+
+  return return_array;
+}
+
+levels = getLevelsArray();
+
+function play(levels, player) {
+    finished = false;
+    i = 0;
+    level = levels[i];
+    level.loadLevel();
 
   return null;
 }
 
+play(levels, player);
