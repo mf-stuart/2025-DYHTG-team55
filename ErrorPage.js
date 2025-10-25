@@ -148,24 +148,24 @@ function play(levels) {
   document.addEventListener("keydown", (e) => {
     if (e.key.toLowerCase() == "w") {
       initialY -= 10;
-      let img = player.showPlayer(initialX, initialY);
-      img.style.transform = "scaleX(-1)"; 
-      for (let walker of level.walkers) {
-            walker.randomlyMove();
-      }
-    }
-
-    if (e.key.toLowerCase() == "s") {
-      initialY += 10;
       player.showPlayer(initialX, initialY);
-          for (let walker of level.walkers) {
+      for (let walker of level.walkers) {
         walker.randomlyMove();
       }
     }
-
+    
+    if (e.key.toLowerCase() == "s") {
+      initialY += 10;
+      player.showPlayer(initialX, initialY);
+      for (let walker of level.walkers) {
+        walker.randomlyMove();
+      }
+    }
+    
     if (e.key.toLowerCase() == "a") {
       initialX -= 10;
-          player.showPlayer(initialX, initialY);
+      let img = player.showPlayer(initialX, initialY);
+      img.style.transform = "scaleX(-1)"; 
       for (let walker of level.walkers) {
         walker.randomlyMove();
       }
@@ -173,7 +173,8 @@ function play(levels) {
 
     if (e.key.toLowerCase() == "d") {
       initialX += 10;
-      player.showPlayer(initialX, initialY);
+      let img = player.showPlayer(initialX, initialY);
+      img.style.transform = "scaleX(1)"; 
       for (let walker of level.walkers) {
         walker.randomlyMove();
       }
