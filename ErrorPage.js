@@ -37,10 +37,13 @@ class Player {
     this.currentLevel = 0;
     this.hitbox = 10;
     this.collection = []
+    this.pastImage = document.createElement("img");
+    document.querySelector("#container").appendChild(this.pastImage);
   }
 
   showPlayer(left, top) {
-    const image = document.createElement("img");
+    document.querySelector("#container").removeChild(this.pastImage);
+    let image = document.createElement("img");
     image.src = this.sprite;
     document.querySelector("#container").appendChild(image);
     image.style.position = "absolute";
@@ -48,6 +51,7 @@ class Player {
     image.style.top = top + "px";
     image.style.width = "50px";
     image.style.height = "50px";
+    this.pastImage = image;
   }
 
   updatePlayerSprite(newSprite) {
@@ -136,8 +140,22 @@ function play(levels) {
   let initialY = 50;
   document.addEventListener("keydown", (e) => {
     if (e.key.toLowerCase() == "w") {
-      initialX += 1;
-      initialY += 1;
+      initialY -= 3;
+      player.showPlayer(initialX, initialY);
+    }
+
+    if (e.key.toLowerCase() == "s") {
+      initialY += 3;
+      player.showPlayer(initialX, initialY);
+    }
+
+    if (e.key.toLowerCase() == "a") {
+      initialX -= 3;
+      player.showPlayer(initialX, initialY);
+    }
+
+    if (e.key.toLowerCase() == "d") {
+      initialX += 3;
       player.showPlayer(initialX, initialY);
     }
   })
