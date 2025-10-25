@@ -27,16 +27,37 @@ class Level {
     const image = document.createElement("img");
     image.src = this.groundSprite;
     document.querySelector("#container").appendChild(image);
+    image.style.position = "absolute";
+    image.style.left = "500px";
+    image.style.top = "500px";
+    image.style.width = "50px";
+    image.style.height = "50px";
+    this.player.showPlayer();
 
   }
 }
 
 class Player {
-  constructor(sprite, currentLevel) {
+  constructor(sprite) {
     this.sprite = sprite;
-    this.currentLevel = currentLevel;
+    this.currentLevel = 0;
     this.hitbox = 10;
     this.collection = []
+  }
+
+  showPlayer(level){
+    const image = document.createElement("img");
+    image.src = this.sprite;
+    document.querySelector("#container").appendChild(image);
+    image.style.position = "absolute";
+    image.style.left = "250px";
+    image.style.top = "250px";
+    image.style.width = "50px";
+    image.style.height = "50px";
+  }
+
+  updatePlayerSprite(newSprite){
+    this.sprite = newSprite;
   }
 }
 
@@ -77,7 +98,7 @@ function getLandmarksArray(city) {
 
 const landmakrsList = getLandmarksArray();
 let numOfWalkers = 50;
-const player = new Player("assets/WalkingPlayer.png", 0, 10)
+//const player = new Player("assets/ny/player.png", 0)
 let walkers = {};
 for (let i = 0; i <= numOfWalkers; i++) {
   walkers[i] = new Walker("assets/ParisWalker.png", 7, getRandomWallCord());
@@ -86,7 +107,7 @@ for (let i = 0; i <= numOfWalkers; i++) {
 function getLevelsArray() {
   let return_array = [];
   for (const city of cities) {
-    let player = new Player("assets/sprites/" + city + "/player.png", 1);
+    let player = new Player("assets/sprites/" + city + "/player.png", 0);
     let walkers = [];
     for (let i = 0; i < numOfWalkers; i++) {
       walkers.push(new Walker("assets/sprites/" + city + "/walker.png"));
@@ -100,13 +121,15 @@ function getLevelsArray() {
 
 let levels = getLevelsArray();
 
-function play(levels, player) {
+function play(levels) {
   let finished = false;
   let i = 0;
+  //const player = new Player("assets/ny/player.png", i)
   let level = levels[i];
   level.loadLevel();
+  player.showPlayer()
 
   return null;
 }
 
-play(levels, player);
+play(levels);
