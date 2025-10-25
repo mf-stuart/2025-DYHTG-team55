@@ -2,6 +2,8 @@ const cities = ["ny", "paris", "sky", "venice"]
 let numOfWalkers = 30;
 let max = 500;
 let min = 0;
+const playerMoveSpeed = 10;
+const walkerMoveSpeed = 5;
 
 function getRandomWallCord() {
   let wall = Math.floor(Math.random() * 4);
@@ -76,6 +78,7 @@ class Walker {
     this.image.style.position = "absolute";
     this.image.style.width = "50px";
     this.image.style.height = "50px";
+    this.moveDirection = Math.floor(Math.random() * 4);
   }
 
   showWalker(left, top) {
@@ -85,9 +88,27 @@ class Walker {
   }
 
   randomlyMove() {
-    this.spawnPos[0] += Math.floor(Math.random() * (4 - (-3) + 1)) + (-3);
-    this.spawnPos[1] += Math.floor(Math.random() * (4 - (-3) + 1)) + (-3);
-    this.showWalker(this.spawnPos[0], this.spawnPos[1]);
+    //change direction
+    if (Math.random() < 0.2){
+      this.moveDirection = Math.floor(Math.random() * 4);
+    }
+    switch (this.moveDirection){
+      case (0)://moving up
+        this.spawnPos[0] += walkerMoveSpeed;
+        break;
+        case (1)://moving right
+        this.spawnPos[1] += walkerMoveSpeed;
+        this.image.style.transform = "scaleX(1)"; 
+        break;
+      case (2)://moving down
+        this.spawnPos[0] -= walkerMoveSpeed;
+        break;
+      case (3)://moving left
+        this.spawnPos[1] -= walkerMoveSpeed;
+        this.image.style.transform = "scaleX(-1)"; 
+        break;
+      }
+      this.showWalker(this.spawnPos[0], this.spawnPos[1]);
   }
 }
 
@@ -147,7 +168,7 @@ function play(levels) {
 
   document.addEventListener("keydown", (e) => {
     if (e.key.toLowerCase() == "w") {
-      initialY -= 10;
+      initialY -= playerMoveSpeed;
       player.showPlayer(initialX, initialY);
       for (let walker of level.walkers) {
         walker.randomlyMove();
@@ -155,7 +176,7 @@ function play(levels) {
     }
     
     if (e.key.toLowerCase() == "s") {
-      initialY += 10;
+      initialY += playerMoveSpeed;
       player.showPlayer(initialX, initialY);
       for (let walker of level.walkers) {
         walker.randomlyMove();
@@ -163,7 +184,7 @@ function play(levels) {
     }
     
     if (e.key.toLowerCase() == "a") {
-      initialX -= 10;
+      initialX -= playerMoveSpeed;
       let img = player.showPlayer(initialX, initialY);
       img.style.transform = "scaleX(-1)"; 
       for (let walker of level.walkers) {
@@ -172,7 +193,7 @@ function play(levels) {
     }
 
     if (e.key.toLowerCase() == "d") {
-      initialX += 10;
+      initialX += playerMoveSpeed;
       let img = player.showPlayer(initialX, initialY);
       img.style.transform = "scaleX(1)"; 
       for (let walker of level.walkers) {
