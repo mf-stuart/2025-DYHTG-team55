@@ -133,16 +133,15 @@ function getLevelsArray() {
   return return_array;
 }
 
-let levels = getLevelsArray();
 
 function play(levels) {
-
+  
   let finished = false;
   let i = 0;
   let level = levels[i];
   let player = level.player;
   level.loadLevel();
-
+  
   let initialX = 50;
   let initialY = 50;
   player.showPlayer(initialX, initialY);
@@ -152,24 +151,26 @@ function play(levels) {
       initialY -= 10;
       player.showPlayer(initialX, initialY);
     }
-
+    
     if (e.key.toLowerCase() == "s") {
       initialY += 10;
       player.showPlayer(initialX, initialY);
     }
-
+    
     if (e.key.toLowerCase() == "a") {
       initialX -= 10;
       player.showPlayer(initialX, initialY);
     }
-
+    
     if (e.key.toLowerCase() == "d") {
       initialX += 10;
       player.showPlayer(initialX, initialY);
     }
   })
-
+  
   return null;
 }
+
+let levels = getLevelsArray();
 
 play(levels);
