@@ -10,8 +10,20 @@ export function make2Vector(arr) {
     return math.matrix([arr[0]], [arr[1]]);
 }
 
-export function add2Vector(vec1, vec2) {
+export function addVector(vec1, vec2) {
     return math.add(vec2, vec2);
+}
+
+export function subVector(vec1, vec2) {
+    return math.subtract(vec2, vec2);
+}
+
+export function getNorm(vec) {
+    let sum = 0;
+    for (let i = 0; i < vec.length; i++) {
+        sum += vec.get([i,0])**2
+    }
+    return math.sqrt(sum);
 }
 
 export function randomVelocity(speed=1) {

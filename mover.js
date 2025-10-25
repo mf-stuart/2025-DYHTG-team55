@@ -1,8 +1,6 @@
 
 import * as vecmaths from "./vector-maths";
-
 const defaultRadius = 2;
-
 // ~1 degree
 const defaultDtheta = 0.0174533;
 const defaultSpeed = 1;
@@ -16,24 +14,63 @@ class Mover {
         this._radius = radius;
     }
 
+    get pos() {
+        return this._pos
+    }
+    set pos(pos) {
+        this._pos = pos;
+    }
+
+    get vel() {
+        return this._vel
+    }
+    set vel(vel) {
+        this._vel = vel;
+    }
+
+    get facing() {
+        return this._facing
+    }
+    set facing(facing) {
+        this._facing = facing;
+    }
+
+    get sprite() {
+        return this._sprite
+    }
+    set sprite(sprite) {
+        this._sprite = sprite;
+    }
+
+    get radius() {
+        return this._radius
+    }
+    set radius(radius) {
+        this._radius = radius
+    }
+
     findNextVelocity() {
 
     }
 
     findNextPosition(foundVelocity) {
-        return vecmaths.add2Vector(this._pos, foundVelocity);
+        return vecmaths.addVector(this._pos, foundVelocity);
     }
 
     collisionCheck(actors) {
-
+        for (const actor of actors) {
+            if (this.radius + actor.radius > vecmaths.getNorm(vecmaths.subVector(this.pos, actor.pos))) {
+                return true;
+            }
+        }
+        return false;
     }
 
-    updateVelocity() {
-
-    }
-
-    updatePosition() {
-
+    updateState(actors) {
+        if (!this.collisionCheck(actors)) {
+            this.pos = vecmaths.addVector(this.pos, this.vel)
+        }
+        this.updateFacing()
     }
 
     updateFacing() {
@@ -47,6 +84,8 @@ class Player extends Mover{
         super(pos,vel,facing,sprite,radius);
         this.currentLevel = currentLevel;
     }
+
+
 }
 
 class Walker extends Mover{
@@ -54,6 +93,14 @@ class Walker extends Mover{
         super(pos,vel,facing,sprite,radius);
         this._dtheta = dtheta;
     }
+
+    get dtheta() {
+        return this._dtheta;
+    }
+    set dtheta(dtheta) {
+        this._dtheta = dtheta;
+    }
+
 
     findNextVelocity() {
         let rotMat = vecmaths.makeRotMat(this._dtheta);
