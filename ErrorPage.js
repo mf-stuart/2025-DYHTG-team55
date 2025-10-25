@@ -27,7 +27,7 @@ class Level {
     // Show background sprite and tile
     document.body.style.background = "#f3f3f3 url(" + this.groundSprite + ")";
     document.body.style.backgroundRepeat = "repeat-y repeat-x";
-    this.player.showPlayer(150, 300);
+    this.player.showPlayer(50, 50);
 
     // load walkers
     for (let walker of this.walkers) {
@@ -153,8 +153,6 @@ function play(levels) {
   let level = levels[i];
   let player = level.player;
   level.loadLevel();
-  player.showPlayer(250, 250)
-  player.showPlayer(250, 500)
 
   let initialX = 50;
   let initialY = 50;
