@@ -1,6 +1,6 @@
 const cities = ["ny", "paris", "sky", "venice"]
-let numOfWalkers = 50;
-let max = 1500;
+let numOfWalkers = 30;
+let max = 500;
 let min = 0;
 
 function getRandomWallCord() {
@@ -122,7 +122,7 @@ function getLevelsArray() {
     let player = new Player("assets/sprites/" + city + "/player.png", 0);
     let walkers = [];
     for (let i = 0; i < numOfWalkers; i++) {
-      let random_x = Math.random() * (max - min) + min;
+      let random_x = Math.random() * (2*max - min) + min+100;
       let random_y = Math.random() * (max - min) + min;
       walkers.push(new Walker("assets/sprites/" + city + "/walker.png", [random_x, random_y]));
     }
