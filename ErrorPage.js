@@ -24,16 +24,10 @@ class Level {
   }
 
   loadLevel() {
-    const image = document.createElement("img");
-    image.src = this.groundSprite;
-    document.querySelector("#container").appendChild(image);
-    image.style.position = "absolute";
-    image.style.left = "500px";
-    image.style.top = "500px";
-    image.style.width = "50px";
-    image.style.height = "50px";
+    // Show background sprite and tile
+    document.body.style.background = "#f3f3f3 url(" + this.groundSprite + ")";
+    document.body.style.backgroundRepeat = "repeat-y repeat-x";
     this.player.showPlayer();
-
   }
 }
 
@@ -45,7 +39,7 @@ class Player {
     this.collection = []
   }
 
-  showPlayer(level){
+  showPlayer(level) {
     const image = document.createElement("img");
     image.src = this.sprite;
     document.querySelector("#container").appendChild(image);
@@ -56,7 +50,7 @@ class Player {
     image.style.height = "50px";
   }
 
-  updatePlayerSprite(newSprite){
+  updatePlayerSprite(newSprite) {
     this.sprite = newSprite;
   }
 }
@@ -110,7 +104,9 @@ function getLevelsArray() {
     let player = new Player("assets/sprites/" + city + "/player.png", 0);
     let walkers = [];
     for (let i = 0; i < numOfWalkers; i++) {
-      walkers.push(new Walker("assets/sprites/" + city + "/walker.png"));
+      let random_x = Math.random() * (max - min) + min;
+      let random_y = Math.random() * (max - min) + min;
+      walkers.push(new Walker("assets/sprites/" + city + "/walker.png"), (random_x, random_y));
     }
     let groundsprite = "assets/sprites/" + city + "/background.png";
     return_array.push(new Level(player, walkers, getLandmarksArray(city), groundsprite));
@@ -122,25 +118,24 @@ function getLevelsArray() {
 let levels = getLevelsArray();
 
 function play(levels) {
-    const keys = {
-        w:false,
-        a:false,
-        s:false,
-        d:false
-    }
+  const keys = {
+    w: false,
+    a: false,
+    s: false,
+    d: false
+  }
   let finished = false;
   let i = 0;
-  //const player = new Player("assets/ny/player.png", i)
   let level = levels[i];
+  let player = level.player;
   level.loadLevel();
   player.showPlayer()
-    while (!finished){
-        document.addEventListener("Keydown", (e)=>{
-            if (keys.hasOwnProperty(e.key.toLowerCase())){
-                keys[e.key.toLowerCase()] = true;
-            }
-        })
+  document.addEventListener("Keydown", (e) => {
+    if (keys.hasOwnProperty(e.key.toLowerCase())) {
+      keys[e.key.toLowerCase()] = true;
     }
+  })
+
   return null;
 }
 
