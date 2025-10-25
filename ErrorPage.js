@@ -156,7 +156,7 @@ const filenames = ["landmark1.png", "landmark2.png", "destination.png"];
 function getLandmarksArray(city) {
   let return_array = [];
   for (const filename of filenames) {
-    let random_x = Math.random() * (max - min) + min;
+    let random_x = Math.random() * ((max - min) + min)*2;
     let random_y = Math.random() * (max - min) + min;
     return_array.push(new Landmark("assets/sprites/" + city + "/" + filename, false, [random_x, random_y]));
   }
