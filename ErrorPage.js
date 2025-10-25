@@ -39,6 +39,7 @@ class Player {
     this.image.style.position = "absolute";
     this.image.style.width = "50px";
     this.image.style.height = "50px";
+    this.currentLocation = [0,0];
   }
 
   showPlayer(left, top) {
@@ -126,11 +127,24 @@ class Landmark {
     this.image.style.height = "50px";
   }
 
+  collisionCheck(player) {
+        let sum = player.hitbox + this.hitbox;
+        let difference = [player.currentLocation[0] - this.location[0], player.currentLocation[1] - this.location[1]];
+        let length = (difference[0]**2 + difference[1]**2)**0.5;
+
+        if (length < sum) {
+            this.visited = true;
+            console.log(this.name + ' has been hit!')
+        }
+    }
+
   showLandmark() {
     this.image.style.left = this.location[0] + "px";
     this.image.style.top = this.location[1] + "px";
     return this.image;
   }
+
+
 
 }
 
@@ -147,7 +161,6 @@ function getLandmarksArray(city) {
   return return_array;
 }
 
-
 function getLevelsArray() {
   let return_array = [];
   for (const city of cities) {
@@ -161,7 +174,6 @@ function getLevelsArray() {
     let groundsprite = "assets/sprites/" + city + "/background.png";
     return_array.push(new Level(player, walkers, getLandmarksArray(city), groundsprite));
   }
-
   return return_array;
 }
 
@@ -180,6 +192,7 @@ function play(levels) {
   let playerX = 50;
   let playerY = 50;
   player.showPlayer(playerX, playerY);
+  player.currentLocation = [playerX, playerY];
 
   document.addEventListener("keydown", (e) => {
     if (e.key.toLowerCase() == "w") {
@@ -188,10 +201,15 @@ function play(levels) {
         playerY += playerMoveSpeed
       }
       player.showPlayer(playerX, playerY);
+      player.currentLocation = [playerX, playerY];
       for (let walker of level.walkers) {
         walker.randomlyMove();
       }
+      for (let landmark of level.landmarks) {
+          landmark.collisionCheck(player);
+      }
     }
+
 
     if (e.key.toLowerCase() == "s") {
       playerY += playerMoveSpeed;
@@ -199,8 +217,12 @@ function play(levels) {
         playerY -= playerMoveSpeed
       }
       player.showPlayer(playerX, playerY);
+      player.currentLocation = [playerX, playerY];
       for (let walker of level.walkers) {
         walker.randomlyMove();
+      }
+      for (let landmark of level.landmarks) {
+            landmark.collisionCheck(player);
       }
     }
 
@@ -210,10 +232,14 @@ function play(levels) {
         playerX += playerMoveSpeed
       }
       let img = player.showPlayer(playerX, playerY);
+      player.currentLocation = [playerX, playerY];
       img.style.transform = "scaleX(-1)";
       for (let walker of level.walkers) {
         walker.randomlyMove();
       }
+      for (let landmark of level.landmarks) {
+        landmark.collisionCheck(player);
+     }
     }
 
     if (e.key.toLowerCase() == "d") {
@@ -222,9 +248,13 @@ function play(levels) {
         playerX -= playerMoveSpeed
       }
       let img = player.showPlayer(playerX, playerY);
+      player.currentLocation = [playerX, playerY];
       img.style.transform = "scaleX(1)";
       for (let walker of level.walkers) {
         walker.randomlyMove();
+      }
+      for (let landmark of level.landmarks) {
+          landmark.collisionCheck(player);
       }
     }
   })
