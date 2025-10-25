@@ -27,7 +27,7 @@ class Level {
     // Show background sprite and tile
     document.body.style.background = "#f3f3f3 url(" + this.groundSprite + ")";
     document.body.style.backgroundRepeat = "repeat-y repeat-x";
-    this.player.showPlayer();
+    this.player.showPlayer(150, 300);
   }
 }
 
@@ -132,17 +132,23 @@ function play(levels) {
   player.showPlayer(250, 250)
   player.showPlayer(250, 500)
 
-  document.addEventListener("Keydown", (e) => {
-    if (keys.hasOwnProperty(e.key.toLowerCase())) {
-      keys[e.key.toLowerCase()] = true;
+  let initialX = 50;
+  let initialY = 50;
+  document.addEventListener("keydown", (e) => {
+    if (e.key.toLowerCase() == "w") {
+      initialX += 1;
+      initialY += 1;
+      player.showPlayer(initialX, initialY);
     }
   })
 
-  document.addEventListener("Keyup", (e) => {
+  document.addEventListener("keyup", (e) => {
     if (keys.hasOwnProperty(e.key.toLowerCase())) {
       keys[e.key.toLowerCase()] = false;
     }
   })
+
+
   return null;
 }
 
