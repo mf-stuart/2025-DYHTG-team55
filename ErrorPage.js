@@ -5,21 +5,6 @@ let min = 0;
 const playerMoveSpeed = 10;
 const walkerMoveSpeed = 5;
 
-function getRandomWallCord() {
-  let wall = Math.floor(Math.random() * 4);
-  let pos = Math.floor((Math.random() * 500) - 250)
-  switch (wall) {
-    case 0:
-      return (-250, pos);
-    case 1:
-      return (250, pos);
-    case 2:
-      return (pos, -250);
-    case 3:
-      return (pos, 250);
-  }
-  return (0, 0);
-}
 class Level {
   constructor(player, walkers, landmarks, groundSprite) {
     this.player = player;
@@ -72,7 +57,6 @@ class Walker {
     this.sprite = sprite;
     this.spawnPos = spawnPos;
     this.hitbox = 7;
-    this.direction = getRandomWallCord();
     this.image = document.createElement("img");
     document.querySelector("#container").appendChild(this.image);
     this.image.style.left = "-100px";
