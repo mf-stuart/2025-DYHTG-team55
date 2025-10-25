@@ -1,4 +1,7 @@
 const cities = ["ny", "paris", "sky", "venice"]
+let numOfWalkers = 50;
+let max = 1500;
+let min = 0;
 
 function getRandomWallCord() {
   let wall = Math.floor(Math.random() * 4);
@@ -98,8 +101,6 @@ class Landmark {
   }
 }
 
-let max = 500;
-let min = 0;
 
 const filenames = ["landmark1.png", "landmark2.png", "destination.png"];
 
@@ -115,7 +116,6 @@ function getLandmarksArray(city) {
 
 
 const landmarksList = getLandmarksArray();
-let numOfWalkers = 50;
 //const player = new Player("assets/ny/player.png", 0)
 // let walkers = {};
 // for (let i = 0; i <= numOfWalkers; i++) {
@@ -130,7 +130,7 @@ function getLevelsArray() {
     for (let i = 0; i < numOfWalkers; i++) {
       let random_x = Math.random() * (max - min) + min;
       let random_y = Math.random() * (max - min) + min;
-      walkers.push(new Walker("assets/sprites/" + city + "/walker.png", (random_x, random_y)));
+      walkers.push(new Walker("assets/sprites/" + city + "/walker.png", [random_x, random_y]));
     }
     let groundsprite = "assets/sprites/" + city + "/background.png";
     return_array.push(new Level(player, walkers, getLandmarksArray(city), groundsprite));
