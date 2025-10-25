@@ -90,7 +90,7 @@ function getLandmarksArray(city) {
 }
 
 
-const landmakrsList = getLandmarksArray();
+const landmarksList = getLandmarksArray();
 let numOfWalkers = 50;
 //const player = new Player("assets/ny/player.png", 0)
 let walkers = {};

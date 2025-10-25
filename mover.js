@@ -20,17 +20,26 @@ class Mover {
 
     }
 
-    findNextPosition() {
-        return vecmaths.add2Vector(this._pos, this._vel);
+    findNextPosition(foundVelocity) {
+        return vecmaths.add2Vector(this._pos, foundVelocity);
+    }
+
+    collisionCheck(actors) {
+
     }
 
     updateVelocity() {
 
     }
 
-    collisionCheck(actors) {
+    updatePosition() {
 
     }
+
+    updateFacing() {
+
+    }
+
 }
 
 class Player extends Mover{
@@ -45,6 +54,12 @@ class Walker extends Mover{
         super(pos,vel,facing,sprite,radius);
         this._dtheta = dtheta;
     }
+
+    findNextVelocity() {
+        let rotMat = vecmaths.makeRotMat(this._dtheta);
+        return vecmaths.transfortmVelocity(rotMat, this._vel);
+    }
+
 }
 
 // ---- useless as of now
