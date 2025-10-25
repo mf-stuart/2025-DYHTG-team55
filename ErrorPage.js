@@ -98,7 +98,20 @@ class Landmark {
     this.visited = false;
     this.location = location;
     this.hitbox = 10;
+    this.image = document.createElement("img");
+    document.querySelector("#container").appendChild(this.image);
+    this.image.src = this.sprite;
+    this.image.style.position = "absolute";
+    this.image.style.width = "50px";
+    this.image.style.height = "50px";
   }
+
+  showLandmark() {
+    this.image.style.left = this.location[0] + "px";
+    this.image.style.top = this.location[1] + "px";
+    return this.image;
+  }
+
 }
 
 
@@ -109,7 +122,7 @@ function getLandmarksArray(city) {
   for (const filename of filenames) {
     let random_x = Math.random() * (max - min) + min;
     let random_y = Math.random() * (max - min) + min;
-    return_array.push(new Landmark("assets/sprites/" + city + "/" + filename, false, (random_x, random_y)));
+    return_array.push(new Landmark("assets/sprites/" + city + "/" + filename, false, [random_x, random_y]));
   }
   return return_array;
 }
@@ -134,15 +147,18 @@ function getLevelsArray() {
 
 
 function play(levels) {
-  
+
   let finished = false;
   let i = 0;
   let level = levels[i];
   let player = level.player;
   level.loadLevel();
+  for (let landmark of level.landmarks) {
+    landmark.showLandmark();
+  }
 
   let initialX = 50;
-    let initialY = 50;
+  let initialY = 50;
   player.showPlayer(initialX, initialY);
 
   document.addEventListener("keydown", (e) => {
@@ -153,7 +169,7 @@ function play(levels) {
         walker.randomlyMove();
       }
     }
-    
+
     if (e.key.toLowerCase() == "s") {
       initialY += 10;
       player.showPlayer(initialX, initialY);
@@ -161,11 +177,11 @@ function play(levels) {
         walker.randomlyMove();
       }
     }
-    
+
     if (e.key.toLowerCase() == "a") {
       initialX -= 10;
       let img = player.showPlayer(initialX, initialY);
-      img.style.transform = "scaleX(-1)"; 
+      img.style.transform = "scaleX(-1)";
       for (let walker of level.walkers) {
         walker.randomlyMove();
       }
@@ -174,7 +190,7 @@ function play(levels) {
     if (e.key.toLowerCase() == "d") {
       initialX += 10;
       let img = player.showPlayer(initialX, initialY);
-      img.style.transform = "scaleX(1)"; 
+      img.style.transform = "scaleX(1)";
       for (let walker of level.walkers) {
         walker.randomlyMove();
       }
