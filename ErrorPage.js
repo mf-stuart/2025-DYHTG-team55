@@ -30,7 +30,7 @@ class Level {
     // Show background sprite and tile
     document.body.style.background = "#f3f3f3 url(" + this.groundSprite + ")";
     document.body.style.backgroundRepeat = "repeat-y repeat-x";
-    this.player.showPlayer(150, 300);
+    this.player.showPlayer(50, 50);
 
     // load walkers
     for (let walker of this.walkers) {
@@ -152,23 +152,22 @@ function play(levels) {
   let initialY = 50;
   document.addEventListener("keydown", (e) => {
     if (e.key.toLowerCase() == "w") {
-      initialY -= 3;
+      initialY -= 10;
       player.showPlayer(initialX, initialY);
     }
 
     if (e.key.toLowerCase() == "s") {
-      initialY += 3;
+      initialY += 10;
       player.showPlayer(initialX, initialY);
     }
 
     if (e.key.toLowerCase() == "a") {
-      initialX -= 3;
-      let img = player.showPlayer(initialX, initialY);
-      img.style.transform = "scaleX(-1)";
+      initialX -= 10;
+      player.showPlayer(initialX, initialY);
     }
 
     if (e.key.toLowerCase() == "d") {
-      initialX += 3;
+      initialX += 10;
       player.showPlayer(initialX, initialY);
     }
   })
