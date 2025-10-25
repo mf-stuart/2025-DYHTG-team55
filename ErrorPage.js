@@ -1,3 +1,5 @@
+cities = ["ny", "paris", "sky", "venice"]
+
 function getRandomWallCord(){
     wall = Math.floor(Math.random() * 4);
     pos = Math.floor((Math.random()*500)-250)
@@ -14,23 +16,23 @@ function getRandomWallCord(){
     return (0, 0);
 }
 
-const landmakrs = {
-    "Paris" : [new Landmark("assets/Louvre.png", "Louvre",)]
+const landmakrsList = {
+    "Paris" : [new Landmark("assets/Louvre.png", "Louvre", false, (200, 50), 10), new Landmark()]
 }
 let numOfWalkers = 50;
 const player = new Player("assets/WalkingPlayer.png", 0, 10)
 let walkers = {};
 for (let i=0; i<=numOfWalkers; i++){
-    walkers[i] = new Walker("assets/Walker.png", 7, )
+    walkers[i] = new Walker("assets/Walker.png", 7, getRandomWallCord());
 }
 
-let levels = {
-    new Level(player, walkers)
-};
+let levels = [
+    new Level(player, walkers, landmarksList["Paris"], "assets/groundSprite.png"),
+];
 class Level{
     constructor(player, walkers, landmarks, groundSprite){
         this.player = player;
-        this.walkers = {};
+        this.walkers = walkers;
         this.landmarks = landmarks;
         this.groundSprite = groundSprite
     }
