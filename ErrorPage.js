@@ -49,6 +49,7 @@ class Player {
     this.collection = []
     this.image = document.createElement("img");
     document.querySelector("#container").appendChild(this.image);
+    this.image.style.left = "-100px";
     this.image.src = this.sprite;
     this.image.style.position = "absolute";
     this.image.style.width = "50px";
@@ -74,6 +75,7 @@ class Walker {
     this.direction = getRandomWallCord();
     this.image = document.createElement("img");
     document.querySelector("#container").appendChild(this.image);
+    this.image.style.left = "-100px";
     this.image.src = this.sprite;
     this.image.style.position = "absolute";
     this.image.style.width = "50px";
@@ -121,6 +123,7 @@ class Landmark {
     this.hitbox = 10;
     this.image = document.createElement("img");
     document.querySelector("#container").appendChild(this.image);
+    this.image.style.left = "-100px";
     this.image.src = this.sprite;
     this.image.style.position = "absolute";
     this.image.style.width = "50px";
