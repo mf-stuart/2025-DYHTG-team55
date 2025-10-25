@@ -47,15 +47,15 @@ class Player {
     this.collection = []
     this.image = document.createElement("img");
     document.querySelector("#container").appendChild(this.image);
+    this.image.src = this.sprite;
+    this.image.style.position = "absolute";
+    this.image.style.width = "50px";
+    this.image.style.height = "50px";
   }
 
   showPlayer(left, top) {
-    this.image.src = this.sprite;
-    this.image.style.position = "absolute";
     this.image.style.left = left + "px";
     this.image.style.top = top + "px";
-    this.image.style.width = "50px";
-    this.image.style.height = "50px";
     return this.image;
   }
 
@@ -72,15 +72,15 @@ class Walker {
     this.direction = getRandomWallCord();
     this.image = document.createElement("img");
     document.querySelector("#container").appendChild(this.image);
+    this.image.src = this.sprite;
+    this.image.style.position = "absolute";
+    this.image.style.width = "50px";
+    this.image.style.height = "50px";
   }
 
   showWalker(left, top) {
-    this.image.src = this.sprite;
-    this.image.style.position = "absolute";
     this.image.style.left = left + "px";
     this.image.style.top = top + "px";
-    this.image.style.width = "50px";
-    this.image.style.height = "50px";
     return this.image;
   }
 }
