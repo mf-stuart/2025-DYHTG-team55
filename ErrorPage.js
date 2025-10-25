@@ -83,6 +83,12 @@ class Walker {
     this.image.style.top = top + "px";
     return this.image;
   }
+
+  randomlyMove() {
+    this.spawnPos[0] += Math.floor(Math.random() * (4 - (-3) + 1)) + (-3);
+    this.spawnPos[1] += Math.floor(Math.random() * (4 - (-3) + 1)) + (-3);
+    this.showWalker(this.spawnPos[0], this.spawnPos[1]);
+  }
 }
 
 class Landmark {
@@ -122,7 +128,7 @@ function getLevelsArray() {
     let player = new Player("assets/sprites/" + city + "/player.png", 0);
     let walkers = [];
     for (let i = 0; i < numOfWalkers; i++) {
-      let random_x = Math.random() * (2*max - min) + min+100;
+      let random_x = Math.random() * (2 * max - min) + min + 100;
       let random_y = Math.random() * (max - min) + min;
       walkers.push(new Walker("assets/sprites/" + city + "/walker.png", [random_x, random_y]));
     }
@@ -135,39 +141,59 @@ function getLevelsArray() {
 
 
 function play(levels) {
-  
+
   let finished = false;
   let i = 0;
   let level = levels[i];
   let player = level.player;
   level.loadLevel();
-  
+
   let initialX = 50;
   let initialY = 50;
   player.showPlayer(initialX, initialY);
-  
+
   document.addEventListener("keydown", (e) => {
     if (e.key.toLowerCase() == "w") {
       initialY -= 10;
       player.showPlayer(initialX, initialY);
+      for (let walker of level.walkers) {
+        walker.randomlyMove();
+      }
     }
-    
+
     if (e.key.toLowerCase() == "s") {
       initialY += 10;
       player.showPlayer(initialX, initialY);
+      for (let walker of level.walkers) {
+        walker.randomlyMove();
+      }
     }
-    
+
     if (e.key.toLowerCase() == "a") {
       initialX -= 10;
       player.showPlayer(initialX, initialY);
+      for (let walker of level.walkers) {
+        walker.randomlyMove();
+      }
     }
-    
+
     if (e.key.toLowerCase() == "d") {
       initialX += 10;
       player.showPlayer(initialX, initialY);
+      for (let walker of level.walkers) {
+        walker.randomlyMove();
+      }
     }
   })
-  
+
+  document.addEventListener("keyup", (e) => {
+    if (keys.hasOwnProperty(e.key.toLowerCase())) {
+      keys[e.key.toLowerCase()] = false;
+      for (let walker of level.walkers) {
+        walker.randomlyMove();
+      }
+    }
+  })
   return null;
 }
 
