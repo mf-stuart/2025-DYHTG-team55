@@ -1,4 +1,4 @@
-const cities = ["ny", "paris", "sky", "venice"]
+const cities = ["ny", "sky", "venice", "paris"]
 let numOfWalkers = 30;
 let max = 500;
 let min = 0;
@@ -19,6 +19,9 @@ class Level {
     document.body.style.backgroundRepeat = "repeat-y repeat-x";
 
 
+    for (let landmark of this.landmarks) {
+        landmark.showLandmark();
+    }
     // load walkers
     for (let walker of this.walkers) {
       walker.showWalker(walker.spawnPos[0], walker.spawnPos[1]);
@@ -185,9 +188,7 @@ function play(levels) {
   let level = levels[i];
   let player = level.player;
   level.loadLevel();
-  for (let landmark of level.landmarks) {
-    landmark.showLandmark();
-  }
+
 
   let playerX = 50;
   let playerY = 50;
@@ -255,6 +256,19 @@ function play(levels) {
       }
       for (let landmark of level.landmarks) {
           landmark.collisionCheck(player);
+          if (landmark.visited){
+            for (let walker of level.walkers){
+                walker.showWalker(-500, 0);
+            }
+            for (let curLandmark of level.landmarks){
+                curLandmark.showLandmark(-500, 0);
+            }
+            player.showPlayer(-500, 0);
+            i++;
+            level = levels[i];
+            player = level.player;
+            level.loadLevel();
+          }
       }
     }
   })
