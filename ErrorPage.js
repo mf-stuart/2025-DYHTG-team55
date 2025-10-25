@@ -109,13 +109,6 @@ function getLandmarksArray(city) {
 }
 
 
-const landmarksList = getLandmarksArray();
-//const player = new Player("assets/ny/player.png", 0)
-// let walkers = {};
-// for (let i = 0; i <= numOfWalkers; i++) {
-//   walkers[i] = new Walker("assets/ParisWalker.png", 7, getRandomWallCord());
-// }
-
 function getLevelsArray() {
   let return_array = [];
   for (const city of cities) {
