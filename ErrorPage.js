@@ -148,7 +148,8 @@ function play(levels) {
   document.addEventListener("keydown", (e) => {
     if (e.key.toLowerCase() == "w") {
       initialY -= 10;
-      player.showPlayer(initialX, initialY);
+      let img = player.showPlayer(initialX, initialY);
+      img.style.transform = "scaleX(-1)"; 
       for (let walker of level.walkers) {
             walker.randomlyMove();
       }
@@ -180,11 +181,8 @@ function play(levels) {
   })
 
   document.addEventListener("keyup", (e) => {
-    if (keys.hasOwnProperty(e.key.toLowerCase())) {
-      keys[e.key.toLowerCase()] = false;
-      for (let walker of level.walkers) {
-        walker.randomlyMove();
-      }
+    for (let walker of level.walkers) {
+      walker.randomlyMove();
     }
   })
   return null;
