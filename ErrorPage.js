@@ -1,8 +1,8 @@
-cities = ["ny", "paris", "sky", "venice"]
+const cities = ["ny", "paris", "sky", "venice"]
 
 function getRandomWallCord() {
-  wall = Math.floor(Math.random() * 4);
-  pos = Math.floor((Math.random() * 500) - 250)
+  let wall = Math.floor(Math.random() * 4);
+  let pos = Math.floor((Math.random() * 500) - 250)
   switch (wall) {
     case 0:
       return (-250, pos);
@@ -23,12 +23,12 @@ class Level {
     this.groundSprite = groundSprite
   }
 
-    loadLevel() {
-        const image = createElement("img");
-        image.src = this.groundSprite;
-        document.querySelector("#container").appendChild(image);
+  loadLevel() {
+    const image = document.createElement("img");
+    image.src = this.groundSprite;
+    document.querySelector("#container").appendChild(image);
 
-    }
+  }
 }
 
 class Player {
@@ -98,13 +98,13 @@ function getLevelsArray() {
   return return_array;
 }
 
-levels = getLevelsArray();
+let levels = getLevelsArray();
 
 function play(levels, player) {
-    finished = false;
-    i = 0;
-    level = levels[i];
-    level.loadLevel();
+  let finished = false;
+  let i = 0;
+  let level = levels[i];
+  level.loadLevel();
 
   return null;
 }
