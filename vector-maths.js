@@ -6,6 +6,13 @@ const maxHeight = 250;
 const minWidth = -250;
 const maxWidth = 250;
 
+export function make2Vector(arr) {
+    return math.matrix([arr[0], arr[1]]);
+}
+
+export function add2Vector(vec1, vec2) {
+    return math.add(vec2, vec2);
+}
 
 export function randomVelocity(speed=1) {
     const min = -1
@@ -14,7 +21,7 @@ export function randomVelocity(speed=1) {
     let x_vel = math.random(min, max)
     let y_vel = math.random(min, max)
     let norm = math.sqrt(x_vel**2 + y_vel**2)
-    return [speed * (x_vel/norm), speed * (y_vel/norm)]
+    return math.matrix([speed * (x_vel/norm), speed * (y_vel/norm)])
 
 }
 
