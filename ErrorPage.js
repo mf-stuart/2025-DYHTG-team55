@@ -91,23 +91,35 @@ class Walker {
 
   randomlyMove() {
     //change direction
-    if (Math.random() < 0.2){
+    if (Math.random() < 0.1){
       this.moveDirection = Math.floor(Math.random() * 4);
     }
     switch (this.moveDirection){
-      case (0)://moving up
+      case (0)://moving down
         this.spawnPos[0] += walkerMoveSpeed;
+        if (this.spawnPos[0] > max){
+          this.spawnPos[0] -= walkerMoveSpeed;
+        }
         break;
         case (1)://moving right
         this.spawnPos[1] += walkerMoveSpeed;
         this.image.style.transform = "scaleX(1)"; 
+        if (this.spawnPos[1] > max * 2){
+          this.spawnPos[1] -= walkerMoveSpeed;
+        }
         break;
-      case (2)://moving down
+      case (2)://moving up
         this.spawnPos[0] -= walkerMoveSpeed;
+        if (this.spawnPos[0] < 0){
+          this.spawnPos[0] += walkerMoveSpeed;
+        }
         break;
       case (3)://moving left
         this.spawnPos[1] -= walkerMoveSpeed;
         this.image.style.transform = "scaleX(-1)"; 
+        if (this.spawnPos[1] < 0){
+          this.spawnPos[1] += walkerMoveSpeed;
+        }
         break;
       }
       this.showWalker(this.spawnPos[0], this.spawnPos[1]);
@@ -181,30 +193,39 @@ function play(levels) {
     landmark.showLandmark();
   }
 
-  let initialX = 50;
-  let initialY = 50;
-  player.showPlayer(initialX, initialY);
+  let playerX = 50;
+  let playerY = 50;
+  player.showPlayer(playerX, playerY);
 
   document.addEventListener("keydown", (e) => {
     if (e.key.toLowerCase() == "w") {
-      initialY -= playerMoveSpeed;
-      player.showPlayer(initialX, initialY);
+      playerY -= playerMoveSpeed;
+      if (playerY < 0){
+        playerY += playerMoveSpeed
+      }
+      player.showPlayer(playerX, playerY);
       for (let walker of level.walkers) {
         walker.randomlyMove();
       }
     }
 
     if (e.key.toLowerCase() == "s") {
-      initialY += playerMoveSpeed;
-      player.showPlayer(initialX, initialY);
+      playerY += playerMoveSpeed;
+            if (playerY > max){
+        playerY -= playerMoveSpeed
+      }
+      player.showPlayer(playerX, playerY);
       for (let walker of level.walkers) {
         walker.randomlyMove();
       }
     }
 
     if (e.key.toLowerCase() == "a") {
-      initialX -= playerMoveSpeed;
-      let img = player.showPlayer(initialX, initialY);
+      playerX -= playerMoveSpeed;
+            if (playerX < 0){
+        playerX += playerMoveSpeed
+      }
+      let img = player.showPlayer(playerX, playerY);
       img.style.transform = "scaleX(-1)";
       for (let walker of level.walkers) {
         walker.randomlyMove();
@@ -212,8 +233,11 @@ function play(levels) {
     }
 
     if (e.key.toLowerCase() == "d") {
-      initialX += playerMoveSpeed;
-      let img = player.showPlayer(initialX, initialY);
+      playerX += playerMoveSpeed;
+            if (playerX > max * 2){
+        playerX -= playerMoveSpeed
+      }
+      let img = player.showPlayer(playerX, playerY);
       img.style.transform = "scaleX(1)";
       for (let walker of level.walkers) {
         walker.randomlyMove();
@@ -221,11 +245,6 @@ function play(levels) {
     }
   })
 
-  document.addEventListener("keyup", (e) => {
-    for (let walker of level.walkers) {
-      walker.randomlyMove();
-    }
-  })
   return null;
 }
 
