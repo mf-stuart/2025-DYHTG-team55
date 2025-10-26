@@ -174,6 +174,7 @@ function getLevelsArray() {
       let random_y = Math.random() * (max - min) + min;
       walkers.push(new Walker("assets/sprites/" + city + "/walker.png", [random_x, random_y]));
     }
+    numOfWalkers *= 1.5;
     let groundsprite = "assets/sprites/" + city + "/background.png";
     return_array.push(new Level(player, walkers, getLandmarksArray(city), groundsprite));
   }
@@ -254,7 +255,8 @@ function play(levels) {
       for (let walker of level.walkers) {
         walker.randomlyMove();
       }
-      for (let landmark of level.landmarks) {
+    }
+    for (let landmark of level.landmarks) {
           landmark.collisionCheck(player);
           if (landmark.visited){
             for (let walker of level.walkers){
@@ -263,14 +265,15 @@ function play(levels) {
             for (let curLandmark of level.landmarks){
                 curLandmark.showLandmark(-500, 0);
             }
+            
             player.showPlayer(-500, 0);
             i++;
             level = levels[i];
             player = level.player;
             level.loadLevel();
+            
           }
       }
-    }
   })
 
   return null;
