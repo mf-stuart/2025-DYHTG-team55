@@ -17,7 +17,6 @@ class Level {
     // Show background sprite and tile
     document.body.style.background = "#f3f3f3 url(" + this.groundSprite + ")";
     document.body.style.backgroundRepeat = "repeat-y repeat-x";
-    document.body
     this.player.showPlayer(50, 50)
 
     for (let landmark of this.landmarks) {
@@ -33,7 +32,6 @@ class Level {
 class Player {
   constructor(sprite) {
     this.sprite = sprite;
-    this.currentLevel = 0;
     this.hitbox = 10;
     this.collection = []
     this.image = document.createElement("img");
@@ -47,13 +45,10 @@ class Player {
   }
 
   showPlayer(left, top) {
+    this.currentLocation = [left, top];
     this.image.style.left = left + "px";
     this.image.style.top = top + "px";
     return this.image;
-  }
-
-  updatePlayerSprite(newSprite) {
-    this.sprite = newSprite;
   }
 }
 
@@ -126,9 +121,8 @@ class Walker {
 }
 
 class Landmark {
-  constructor(sprite, name, location) {
+  constructor(sprite, location) {
     this.sprite = sprite;
-    this.name = name;
     this.visited = false;
     this.location = location;
     this.hitbox = 20;
@@ -171,7 +165,7 @@ function getLandmarksArray(city) {
   for (const filename of filenames) {
     let random_x = ((Math.random() * (max-100))+100)*2;
     let random_y = Math.random() * (max - min) + min;
-    return_array.push(new Landmark("assets/sprites/" + city + "/" + filename, false, [random_x, random_y]));
+    return_array.push(new Landmark("assets/sprites/" + city + "/" + filename, [random_x, random_y]));
   }
   return return_array;
 }
@@ -216,7 +210,6 @@ function play(levels) {
         playerY += playerMoveSpeed
       }
       player.showPlayer(playerX, playerY);
-      player.currentLocation = [playerX, playerY];
       for (let walker of level.walkers) {
         walker.randomlyMove();
       }
@@ -229,7 +222,6 @@ function play(levels) {
         playerY -= playerMoveSpeed
       }
       player.showPlayer(playerX, playerY);
-      player.currentLocation = [playerX, playerY];
       for (let walker of level.walkers) {
         walker.randomlyMove();
       }
@@ -241,7 +233,6 @@ function play(levels) {
         playerX += playerMoveSpeed
       }
       let img = player.showPlayer(playerX, playerY);
-      player.currentLocation = [playerX, playerY];
       img.style.transform = "scaleX(-1)";
       for (let walker of level.walkers) {
         walker.randomlyMove();
@@ -254,7 +245,6 @@ function play(levels) {
         playerX -= playerMoveSpeed
       }
       let img = player.showPlayer(playerX, playerY);
-      player.currentLocation = [playerX, playerY];
       img.style.transform = "scaleX(1)";
       for (let walker of level.walkers) {
         walker.randomlyMove();
