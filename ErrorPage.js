@@ -1,5 +1,5 @@
 const cities = ["sky", "paris", "ny", "venice"]
-let numOfWalkers = 20;
+let numOfWalkers = 1;
 let max = 500;
 let min = 0;
 const playerMoveSpeed = 10;
@@ -200,6 +200,8 @@ function play(levels) {
   let player = level.player;
   level.loadLevel();
 
+  let landmarksVisited = 0;
+
 
   let playerX = 50;
   let playerY = 50;
@@ -217,9 +219,6 @@ function play(levels) {
       for (let walker of level.walkers) {
         walker.randomlyMove();
       }
-      for (let landmark of level.landmarks) {
-          landmark.collisionCheck(player);
-      }
     }
 
 
@@ -232,9 +231,6 @@ function play(levels) {
       player.currentLocation = [playerX, playerY];
       for (let walker of level.walkers) {
         walker.randomlyMove();
-      }
-      for (let landmark of level.landmarks) {
-            landmark.collisionCheck(player);
       }
     }
 
@@ -249,9 +245,6 @@ function play(levels) {
       for (let walker of level.walkers) {
         walker.randomlyMove();
       }
-      for (let landmark of level.landmarks) {
-        landmark.collisionCheck(player);
-     }
     }
 
     if (e.key.toLowerCase() == "d" || e.key == "ArrowRight") {
@@ -273,8 +266,15 @@ function play(levels) {
     }
 
     for (let landmark of level.landmarks) {
-          landmark.collisionCheck(player);
-          if (landmark.visited){
+      if (!landmark.visited){
+        console.log("notvisited");
+        landmark.collisionCheck(player);
+        if (landmark.visited){
+          landmark.showLandmark(-100,0)
+          landmarksVisited++;
+          console.log("visited");
+          if (landmarksVisited >= 3){
+            landmarksVisited = 0;
             for (let walker of level.walkers){
                 walker.showWalker(-500, 0);
             }
@@ -290,9 +290,11 @@ function play(levels) {
             }
             level = levels[i];
             player = level.player;
-            level.loadLevel();  
+            level.loadLevel();
           }
+        }
       }
+    }
   })
 
   return null;
