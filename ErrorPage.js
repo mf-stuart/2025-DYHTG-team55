@@ -45,6 +45,7 @@ class Player {
   }
 
   showPlayer(left, top) {
+    this.currentLocation = [left, top];
     this.image.style.left = left + "px";
     this.image.style.top = top + "px";
     return this.image;
@@ -209,7 +210,6 @@ function play(levels) {
         playerY += playerMoveSpeed
       }
       player.showPlayer(playerX, playerY);
-      player.currentLocation = [playerX, playerY];
       for (let walker of level.walkers) {
         walker.randomlyMove();
       }
@@ -222,7 +222,6 @@ function play(levels) {
         playerY -= playerMoveSpeed
       }
       player.showPlayer(playerX, playerY);
-      player.currentLocation = [playerX, playerY];
       for (let walker of level.walkers) {
         walker.randomlyMove();
       }
@@ -234,7 +233,6 @@ function play(levels) {
         playerX += playerMoveSpeed
       }
       let img = player.showPlayer(playerX, playerY);
-      player.currentLocation = [playerX, playerY];
       img.style.transform = "scaleX(-1)";
       for (let walker of level.walkers) {
         walker.randomlyMove();
@@ -247,7 +245,6 @@ function play(levels) {
         playerX -= playerMoveSpeed
       }
       let img = player.showPlayer(playerX, playerY);
-      player.currentLocation = [playerX, playerY];
       img.style.transform = "scaleX(1)";
       for (let walker of level.walkers) {
         walker.randomlyMove();
