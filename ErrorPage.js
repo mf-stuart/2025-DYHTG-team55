@@ -49,8 +49,6 @@ class Player {
     this.image.style.top = top + "px";
     return this.image;
   }
-
-
 }
 
 class Walker {
@@ -122,9 +120,8 @@ class Walker {
 }
 
 class Landmark {
-  constructor(sprite, name, location) {
+  constructor(sprite, location) {
     this.sprite = sprite;
-    this.name = name;
     this.visited = false;
     this.location = location;
     this.hitbox = 20;
@@ -167,7 +164,7 @@ function getLandmarksArray(city) {
   for (const filename of filenames) {
     let random_x = ((Math.random() * (max-100))+100)*2;
     let random_y = Math.random() * (max - min) + min;
-    return_array.push(new Landmark("assets/sprites/" + city + "/" + filename, false, [random_x, random_y]));
+    return_array.push(new Landmark("assets/sprites/" + city + "/" + filename, [random_x, random_y]));
   }
   return return_array;
 }
