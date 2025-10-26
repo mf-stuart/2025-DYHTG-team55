@@ -1,5 +1,5 @@
 const cities = ["sky", "paris", "ny", "venice"]
-let numOfWalkers = 30;
+let numOfWalkers = 20;
 let max = 500;
 let min = 0;
 const playerMoveSpeed = 10;
@@ -60,7 +60,7 @@ class Walker {
   constructor(sprite, spawnPos) {
     this.sprite = sprite;
     this.spawnPos = spawnPos;
-    this.hitbox = 7;
+    this.hitbox = 10;
     this.image = document.createElement("img");
     document.querySelector("#container").appendChild(this.image);
     this.image.style.left = "-100px";
@@ -130,7 +130,7 @@ class Landmark {
     this.name = name;
     this.visited = false;
     this.location = location;
-    this.hitbox = 10;
+    this.hitbox = 20;
     this.image = document.createElement("img");
     document.querySelector("#container").appendChild(this.image);
     this.image.style.left = "-100px";
@@ -270,22 +270,23 @@ function play(levels) {
         location.reload();
       }
     }
+
     for (let landmark of level.landmarks) {
           landmark.collisionCheck(player);
           if (landmark.visited){
             for (let walker of level.walkers){
                 walker.showWalker(-500, 0);
             }
-            for (let curLandmark of level.landmarks){
-                curLandmark.showLandmark(-500, 0);
-            }
             
             player.showPlayer(-500, 0);
+            for (let curLandmark of level.landmarks){
+                console.log("check")
+                curLandmark.showLandmark(-500, 0);
+            }
             i++;
             level = levels[i];
             player = level.player;
-            level.loadLevel();
-            
+            level.loadLevel();  
           }
       }
   })
