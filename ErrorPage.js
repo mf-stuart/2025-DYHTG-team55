@@ -284,6 +284,10 @@ function play(levels) {
                 curLandmark.showLandmark(-500, 0);
             }
             i++;
+            if (i>=4){
+              i = 0;
+              levels = getLevelsArray();
+            }
             level = levels[i];
             player = level.player;
             level.loadLevel();  
