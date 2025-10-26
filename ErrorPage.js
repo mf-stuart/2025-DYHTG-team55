@@ -17,7 +17,6 @@ class Level {
     // Show background sprite and tile
     document.body.style.background = "#f3f3f3 url(" + this.groundSprite + ")";
     document.body.style.backgroundRepeat = "repeat-y repeat-x";
-    document.body
     this.player.showPlayer(50, 50)
 
     for (let landmark of this.landmarks) {
@@ -33,7 +32,6 @@ class Level {
 class Player {
   constructor(sprite) {
     this.sprite = sprite;
-    this.currentLevel = 0;
     this.hitbox = 10;
     this.collection = []
     this.image = document.createElement("img");
