@@ -6,12 +6,11 @@ const playerMoveSpeed = 10;
 const walkerMoveSpeed = 5;
 
 class Level {
-  constructor(player, walkers, landmarks, groundSprite, sound) {
+  constructor(player, walkers, landmarks, groundSprite) {
     this.player = player;
     this.walkers = walkers;
     this.landmarks = landmarks;
     this.groundSprite = groundSprite;
-    this.sound = sound;
   }
 
   loadLevel() {
@@ -20,7 +19,6 @@ class Level {
     document.body.style.backgroundRepeat = "repeat-y repeat-x";
     document.body
     this.player.showPlayer(50, 50)
-    this.sound.play();
 
     for (let landmark of this.landmarks) {
         landmark.showLandmark(landmark.location[0], landmark.location[1]);
@@ -190,9 +188,7 @@ function getLevelsArray() {
     }
     numOfWalkers *= 1.5;
     let groundsprite = "assets/sprites/" + city + "/background.png";
-    let sound = new Audio("assets/sprites/" + city + "/audio.mp3")
-    sound.loop = true;
-    return_array.push(new Level(player, walkers, getLandmarksArray(city), groundsprite, sound));
+    return_array.push(new Level(player, walkers, getLandmarksArray(city), groundsprite));
   }
   return return_array;
 }
@@ -297,7 +293,6 @@ function play(levels) {
             player = level.player;
             playerX = 50;
             playerY = 50;
-            level.sound.pause();
             level.loadLevel();
           }
         }
