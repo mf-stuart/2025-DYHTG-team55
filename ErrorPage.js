@@ -1,5 +1,5 @@
 const cities = ["sky", "paris", "ny", "venice"]
-let numOfWalkers = 1;
+let numOfWalkers = 20;
 let max = 500;
 let min = 0;
 const playerMoveSpeed = 10;
@@ -17,7 +17,7 @@ class Level {
     // Show background sprite and tile
     document.body.style.background = "#f3f3f3 url(" + this.groundSprite + ")";
     document.body.style.backgroundRepeat = "repeat-y repeat-x";
-
+    this.player.showPlayer(50, 50)
 
     for (let landmark of this.landmarks) {
         landmark.showLandmark(landmark.location[0], landmark.location[1]);
@@ -168,7 +168,7 @@ const filenames = ["landmark1.png", "landmark2.png", "destination.png"];
 function getLandmarksArray(city) {
   let return_array = [];
   for (const filename of filenames) {
-    let random_x = Math.random() * ((max - min) + min)*2;
+    let random_x = ((Math.random() * (max-100))+100)*2;
     let random_y = Math.random() * (max - min) + min;
     return_array.push(new Landmark("assets/sprites/" + city + "/" + filename, false, [random_x, random_y]));
   }
@@ -181,7 +181,7 @@ function getLevelsArray() {
     let player = new Player("assets/sprites/" + city + "/player.png", 0);
     let walkers = [];
     for (let i = 0; i < numOfWalkers; i++) {
-      let random_x = Math.random() * (2 * max - min) + min + 100;
+      let random_x = ((Math.random() * (max-100))+100)*2;
       let random_y = Math.random() * (max - min) + min;
       walkers.push(new Walker("assets/sprites/" + city + "/walker.png", [random_x, random_y]));
     }
@@ -290,6 +290,8 @@ function play(levels) {
             }
             level = levels[i];
             player = level.player;
+            playerX = 50;
+            playerY = 50;
             level.loadLevel();
           }
         }
