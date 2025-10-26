@@ -81,13 +81,13 @@ class Walker {
     switch (this.moveDirection){
       case (0)://moving right
         this.spawnPos[0] += walkerMoveSpeed;
+        this.image.style.transform = "scaleX(1)"; 
         if (this.spawnPos[0] > max * 2){
           this.spawnPos[0] -= walkerMoveSpeed;
         }
         break;
         case (1)://moving down
         this.spawnPos[1] += walkerMoveSpeed;
-        this.image.style.transform = "scaleX(1)"; 
         if (this.spawnPos[1] > max){
           this.spawnPos[1] -= walkerMoveSpeed;
         }
