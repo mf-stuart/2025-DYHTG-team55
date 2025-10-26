@@ -1,5 +1,5 @@
 const cities = ["sky", "paris", "ny", "venice"]
-let numOfWalkers = 2;
+let numOfWalkers = 20;
 let max = 500;
 let min = 0;
 const playerMoveSpeed = 10;
