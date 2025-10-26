@@ -112,6 +112,16 @@ class Walker {
       }
       this.showWalker(this.spawnPos[0], this.spawnPos[1]);
   }
+
+  collisionCheckWalker(player) {
+        let sum = player.hitbox + this.hitbox;
+        let difference = [player.currentLocation[0] - this.spawnPos[0], player.currentLocation[1] - this.spawnPos[1]];
+        let length = (difference[0]**2 + difference[1]**2)**0.5;
+
+        if (length < sum) {
+            return true;
+        }
+    }
 }
 
 class Landmark {
@@ -137,7 +147,6 @@ class Landmark {
 
         if (length < sum) {
             this.visited = true;
-            console.log(this.name + ' has been hit!')
         }
     }
 
@@ -254,6 +263,11 @@ function play(levels) {
       img.style.transform = "scaleX(1)";
       for (let walker of level.walkers) {
         walker.randomlyMove();
+      }
+    }
+    for (let curWalker of level.walkers){
+      if (curWalker.collisionCheckWalker(player)){
+        location.reload();
       }
     }
     for (let landmark of level.landmarks) {
