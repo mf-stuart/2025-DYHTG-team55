@@ -1,5 +1,5 @@
 const cities = ["sky", "paris", "ny", "venice"]
-let numOfWalkers = 20;
+let numOfWalkers = 2;
 let max = 500;
 let min = 0;
 const playerMoveSpeed = 10;
@@ -50,9 +50,7 @@ class Player {
     return this.image;
   }
 
-  updatePlayerSprite(newSprite) {
-    this.sprite = newSprite;
-  }
+
 }
 
 class Walker {
