@@ -285,7 +285,7 @@ function play(levels) {
             playerY = 50;
             level.loadLevel();
             score++;
-            document.getElementById("score").innerText = "score : " + score;
+            document.getElementById("score").innerText = "score | " + score;
           }
         }
       }
