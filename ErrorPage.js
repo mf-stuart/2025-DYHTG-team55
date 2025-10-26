@@ -195,7 +195,7 @@ function getLevelsArray() {
 
 
 function play(levels) {
-
+  let score = 0;
   let i = 0;
   let level = levels[i];
   let player = level.player;
@@ -294,6 +294,8 @@ function play(levels) {
             playerX = 50;
             playerY = 50;
             level.loadLevel();
+            score++;
+            document.getElementById("score").innerText = "score : " + score;
           }
         }
       }
