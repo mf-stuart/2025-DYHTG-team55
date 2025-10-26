@@ -20,7 +20,7 @@ class Level {
 
 
     for (let landmark of this.landmarks) {
-        landmark.showLandmark();
+        landmark.showLandmark(landmark.location[0], landmark.location[1]);
     }
     // load walkers
     for (let walker of this.walkers) {
@@ -150,9 +150,11 @@ class Landmark {
         }
     }
 
-  showLandmark() {
-    this.image.style.left = this.location[0] + "px";
+  showLandmark(left, top) {
+    this.location[0] = left;
+    this.location[1] = top;
     this.image.style.top = this.location[1] + "px";
+    this.image.style.left = this.location[0] + "px";
     return this.image;
   }
 
@@ -193,7 +195,6 @@ function getLevelsArray() {
 
 function play(levels) {
 
-  let finished = false;
   let i = 0;
   let level = levels[i];
   let player = level.player;
@@ -206,7 +207,7 @@ function play(levels) {
   player.currentLocation = [playerX, playerY];
 
   document.addEventListener("keydown", (e) => {
-    if (e.key.toLowerCase() == "w") {
+    if (e.key.toLowerCase() == "w" || e.key == "ArrowUp") {
       playerY -= playerMoveSpeed;
       if (playerY < 0){
         playerY += playerMoveSpeed
@@ -222,7 +223,7 @@ function play(levels) {
     }
 
 
-    if (e.key.toLowerCase() == "s") {
+    if (e.key.toLowerCase() == "s"|| e.key == "ArrowDown") {
       playerY += playerMoveSpeed;
             if (playerY > max){
         playerY -= playerMoveSpeed
@@ -237,7 +238,7 @@ function play(levels) {
       }
     }
 
-    if (e.key.toLowerCase() == "a") {
+    if (e.key.toLowerCase() == "a" || e.key == "ArrowLeft") {
       playerX -= playerMoveSpeed;
             if (playerX < 0){
         playerX += playerMoveSpeed
@@ -253,7 +254,7 @@ function play(levels) {
      }
     }
 
-    if (e.key.toLowerCase() == "d") {
+    if (e.key.toLowerCase() == "d" || e.key == "ArrowRight") {
       playerX += playerMoveSpeed;
             if (playerX > max * 2){
         playerX -= playerMoveSpeed
@@ -280,8 +281,7 @@ function play(levels) {
             
             player.showPlayer(-500, 0);
             for (let curLandmark of level.landmarks){
-                console.log("check")
-                curLandmark.showLandmark(-500, 0);
+                curLandmark.showLandmark(-250, 250);
             }
             i++;
             if (i>=4){
