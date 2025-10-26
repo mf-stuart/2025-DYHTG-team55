@@ -1,4 +1,4 @@
-const cities = ["ny", "sky", "venice", "paris"]
+const cities = ["sky", "paris", "ny", "venice"]
 let numOfWalkers = 30;
 let max = 500;
 let min = 0;
